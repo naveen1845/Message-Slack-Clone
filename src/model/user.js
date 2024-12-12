@@ -7,8 +7,8 @@ const userModel = new mongoose.Schema({
             required: [true, 'email is Required'],
             unique: [true, 'email already exists'],
             match: [
-                /^[a-zA-Z0-9]+$/,
-                'Username must contain only letters and numbers'
+                /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                'invalid email signature'
             ],
         },
         password: {
