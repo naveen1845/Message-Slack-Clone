@@ -4,19 +4,19 @@ import globals from 'globals';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  { 
-    languageOptions: { 
-      globals: { 
-        ...globals.browser, 
-        ...globals.node 
-        } 
+  {
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node
+      }
     },
     plugins: {
-      'simple-import-sort' : eslintPluginSimpleImportSort
+      'simple-import-sort': eslintPluginSimpleImportSort
     },
     rules: {
-      'simple-import-sort/imports' : 'error',
-      'simple-import-sort/exports' : 'error'
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error'
     }
   },
   pluginJs.configs.recommended
