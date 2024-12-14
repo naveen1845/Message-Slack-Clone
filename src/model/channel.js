@@ -9,4 +9,4 @@ const channelModel = new mongoose.Schema({
 
 const Channel = mongoose.Collection('Channel', channelModel)
 
-export default Channel
+export default Channel;
