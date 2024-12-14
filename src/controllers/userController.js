@@ -1,8 +1,9 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { singUpService } from '../services/userService.js';
+import { singInService, singUpService } from '../services/userService.js';
 import {
   customErrorResponse,
+  internalErrorResponse,
   successResponse
 } from '../utils/common/responseObjects.js';
 
@@ -20,5 +21,23 @@ export async function signUp(req, res) {
       success: false,
       message: 'Internal server error'
     });
+  }
+}
+
+export async function signIn(req, res) {
+  try {
+    const user = await singInService(req.body);
+    return res
+      .status(StatusCodes.OK)
+      .json(successResponse(user, 'User Signed in Successfully'));
+  } catch (error) {
+    console.log('sign in service error :', error);
+    if (error.statusCode) {
+      return res.status(error.statusCode).json(customErrorResponse(error));
+    }
+
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(internalErrorResponse(error));
   }
 }
