@@ -1,40 +1,41 @@
+import mongoose from 'mongoose';
 
-import mongoose from "mongoose";
-
-const workspaceModel = new mongoose.Schema({
+const workspaceModel = new mongoose.Schema(
+  {
     name: {
-        type: String,
-        required: [true, 'Workspace name is required']
+      type: String,
+      required: [true, 'Workspace name is required'],
+      unique: true
     },
     description: {
-        type: String
+      type: String
     },
     joinId: {
-        type: String,
-        required: [true, 'Join code is required']
+      type: String
     },
     members: [
-        {
-            memberId: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'User'
-            },
-            role: {
-                type: String,
-                enum: ['admin', 'member'],
-                default: 'member'
-            }
+      {
+        memberId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User'
+        },
+        role: {
+          type: String,
+          enum: ['admin', 'member'],
+          default: 'member'
         }
+      }
     ],
-    Channels: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Channel'
-        }
+    channels: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Channel'
+      }
     ]
-}, { timestamps: true })
+  },
+  { timestamps: true }
+);
 
-
-const Workspace = mongoose.Collection('Workspace', workspaceModel);
+const Workspace = mongoose.model('Workspace', workspaceModel);
 
 export default Workspace;

@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken';
 import { JWT_SECRET_KEY } from '../config/serverConfig.js';
 import userRepository from '../repository/userRepository.js';
 import { customErrorResponse } from '../utils/common/responseObjects.js';
-
 export const isAuth = async (req, res, next) => {
   try {
     const token = req.headers['x-access-token'];
@@ -34,6 +33,11 @@ export const isAuth = async (req, res, next) => {
 
     next();
   } catch (error) {
-    console.log('IsAuth Middleware error: ', error);
+    if (error.name == 'JsonWebTokenError') {
+        return res.status(StatusCodes.BAD_REQUEST).json(customErrorResponse({
+            explanation : 'Invalid token Signature',
+            message: 'invalid token given'
+        }))
+    }
   }
 };

@@ -1,12 +1,15 @@
-import mongoose, { modelNames } from "mongoose";
+import mongoose from 'mongoose';
 
-const channelModel = new mongoose.Schema({
+const channelModel = new mongoose.Schema(
+  {
     name: {
-        type: String,
-        required: [true, 'Channel name is required']
+      type: String,
+      required: [true, 'Channel name is required']
     }
-}, { timestamps : true });
+  },
+  { timestamps: true }
+);
 
-const Channel = mongoose.Collection('Channel', channelModel)
+const Channel = mongoose.model('Channel', channelModel);
 
 export default Channel;
