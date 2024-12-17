@@ -8,6 +8,10 @@ import userRepository from './userRepository.js';
 
 export const workspaceRespository = {
   ...crudRepository(Workspace),
+  getWorkspaceById: async function ( workspaceId ) {
+    const response = await Workspace.findById( workspaceId ).populate('channels')
+    return response;
+  } ,
   addMemberToWorkspace: async function (workspaceId, memberId, role) {
     const workspace = await Workspace.findById(workspaceId);
 
@@ -81,12 +85,16 @@ export const workspaceRespository = {
 
     return workspace;
   },
-  
+
   fetchAllWorkspaceByMemberId: async function (memberId) {
     const workspaces = await Workspace.find({
       'members.memberId': memberId
     }).populate('members.memberId', 'username email avatar');
 
     return workspaces;
+  },
+  findByJoinCode: async function (joinCode) {
+    const response = await Workspace.findOne({ joinId: joinCode });
+    return response;
   }
 };

@@ -34,10 +34,12 @@ export const isAuth = async (req, res, next) => {
     next();
   } catch (error) {
     if (error.name == 'JsonWebTokenError') {
-        return res.status(StatusCodes.BAD_REQUEST).json(customErrorResponse({
-            explanation : 'Invalid token Signature',
-            message: 'invalid token given'
-        }))
+      return res.status(StatusCodes.BAD_REQUEST).json(
+        customErrorResponse({
+          explanation: 'Invalid token Signature',
+          message: 'invalid token given'
+        })
+      );
     }
   }
 };
