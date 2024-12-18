@@ -1,8 +1,8 @@
 import express from 'express';
 
 import {
-    addChannelToWorkspace,
-    addMemberToWorkspace,
+  addChannelToWorkspace,
+  addMemberToWorkspace,
   createWorkspace,
   deleteWorkspace,
   getWorkspace,
@@ -24,11 +24,11 @@ router.get('/:workspaceId', isAuth, getWorkspace);
 
 router.get('/join/:joinCode', isAuth, getWorkspaceByJoinCode);
 
-router.put('/:workspaceId', isAuth, updatedWorkspace)
+router.put('/:workspaceId', isAuth, updatedWorkspace);
 
-router.put('/:workspaceId/members', isAuth, addMemberToWorkspace)
+router.put('/:workspaceId/members', isAuth, addMemberToWorkspace);
 
-router.put('/:workspaceId/channels', isAuth, addChannelToWorkspace)
+router.put('/:workspaceId/channels', isAuth, addChannelToWorkspace);
 
 router.delete('/:workspaceId', isAuth, deleteWorkspace);
 

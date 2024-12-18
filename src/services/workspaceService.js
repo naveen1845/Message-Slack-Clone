@@ -14,7 +14,7 @@ const isUserAdmin = function (workspace, userId) {
   });
 };
 
-const isMemberAlreadyMemberOfWorkspace = function (workspace, memberId) {
+export const isMemberAlreadyMemberOfWorkspace = function (workspace, memberId) {
   return workspace.members.find((member) => {
     return (
       member.memberId.toString() == memberId ||
@@ -297,7 +297,6 @@ export const addChannelToWorkspaceService = async (
 
     console.log(workspace.channels[0]);
     console.log(workspace.members[0]);
-    
 
     const isChannelAlreadyPresent = isChannelAlreadyPartOfWorkspace(
       workspace,

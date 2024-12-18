@@ -1,8 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
 
 import {
-    addChannelToWorkspaceService,
-    addMemberToWorkspaceService,
+  addChannelToWorkspaceService,
+  addMemberToWorkspaceService,
   createWorkspaceService,
   deleteWorkspaceService,
   getWorkspacesByJoinCodeService,
@@ -15,7 +15,6 @@ import {
   internalErrorResponse,
   successResponse
 } from '../utils/common/responseObjects.js';
-import { read } from 'fs';
 
 export const createWorkspace = async (req, res) => {
   try {
@@ -121,65 +120,66 @@ export const getWorkspaceByJoinCode = async (req, res) => {
   }
 };
 
-
 export const updatedWorkspace = async (req, res) => {
-    try {
-        const response = await updateWorkspaceService(req.params.workspaceId, req.body, req.user)
-        return res
-          .status(StatusCodes.OK)
-          .json(successResponse(response, 'Workspace Updated successfully'));
-      } catch (error) {
-        if (error.statusCode) {
-          return res.status(error.statusCode).json(customErrorResponse(error));
-        }
-    
-        return res
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .json(internalErrorResponse(error));
-      }
-}
+  try {
+    const response = await updateWorkspaceService(
+      req.params.workspaceId,
+      req.body,
+      req.user
+    );
+    return res
+      .status(StatusCodes.OK)
+      .json(successResponse(response, 'Workspace Updated successfully'));
+  } catch (error) {
+    if (error.statusCode) {
+      return res.status(error.statusCode).json(customErrorResponse(error));
+    }
+
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(internalErrorResponse(error));
+  }
+};
 
 export const addMemberToWorkspace = async (req, res) => {
-    try {
-        const response = await addMemberToWorkspaceService(
-            req.params.workspaceId, 
-            req.body.memberId, 
-            req.body.role || 'member', 
-            req.user
-        )
-        return res
-          .status(StatusCodes.OK)
-          .json(successResponse(response, 'New member added successfully'));
-      } catch (error) {
-        if (error.statusCode) {
-          return res.status(error.statusCode).json(customErrorResponse(error));
-        }
-    
-        return res
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .json(internalErrorResponse(error));
-      }
-}
+  try {
+    const response = await addMemberToWorkspaceService(
+      req.params.workspaceId,
+      req.body.memberId,
+      req.body.role || 'member',
+      req.user
+    );
+    return res
+      .status(StatusCodes.OK)
+      .json(successResponse(response, 'New member added successfully'));
+  } catch (error) {
+    if (error.statusCode) {
+      return res.status(error.statusCode).json(customErrorResponse(error));
+    }
 
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(internalErrorResponse(error));
+  }
+};
 
 export const addChannelToWorkspace = async (req, res) => {
-    try {
-        const response = await addChannelToWorkspaceService(
-            req.params.workspaceId,
-            req.body.channelName,
-            req.user
-        )
-        return res
-          .status(StatusCodes.OK)
-          .json(successResponse(response, 'New channel added successfully'));
-      } catch (error) {
-        if (error.statusCode) {
-          return res.status(error.statusCode).json(customErrorResponse(error));
-        }
-    
-        return res
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .json(internalErrorResponse(error));
-      }
-}
+  try {
+    const response = await addChannelToWorkspaceService(
+      req.params.workspaceId,
+      req.body.channelName,
+      req.user
+    );
+    return res
+      .status(StatusCodes.OK)
+      .json(successResponse(response, 'New channel added successfully'));
+  } catch (error) {
+    if (error.statusCode) {
+      return res.status(error.statusCode).json(customErrorResponse(error));
+    }
 
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(internalErrorResponse(error));
+  }
+};
