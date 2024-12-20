@@ -1,5 +1,6 @@
 import express from 'express';
 
+import bullServerAdapter from './config/bullBoardConfig.js';
 import connectDB from './config/dbConfig.js';
 import { PORT } from './config/serverConfig.js';
 import apiRouter from './routes/apiRouter.js';
@@ -16,6 +17,7 @@ app.listen(PORT, async () => {
 });
 
 app.use('/api', apiRouter);
+app.use('/ui', bullServerAdapter.getRouter());
 
 app.get('/ping', (req, res) => {
   res.send({ message: 'Pong' });

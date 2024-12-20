@@ -18,7 +18,7 @@ export const workspaceRespository = {
     if (!workspace) {
       throw new ClientError({
         explanation: 'Invalid data sent by the client',
-        message: 'Invalid Status code',
+        message: 'Invalid workspace id',
         statusCode: StatusCodes.NOT_FOUND
       });
     }
