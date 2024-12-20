@@ -17,17 +17,19 @@ export const getChannelByIdService = async (channelId, userId) => {
       });
     }
 
-    const isUserMmeberofWorkspace = isMemberAlreadyMemberOfWorkspace(channel.workspaceId, userId);
+    const isUserMmeberofWorkspace = isMemberAlreadyMemberOfWorkspace(
+      channel.workspaceId,
+      userId
+    );
 
     if (!isUserMmeberofWorkspace) {
       throw new ClientError({
-        explanation: 'user is not the member of the workspace hense not allowed to access the channel',
+        explanation:
+          'user is not the member of the workspace hense not allowed to access the channel',
         message: 'this user is not the member of the workspace',
         statusCode: StatusCodes.UNAUTHORIZED
       });
     }
-
-    return channel;
 
     return channel;
   } catch (error) {
