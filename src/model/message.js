@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const messageModel = new mongoose.Schema(
   {
-    bode: {
+    body: {
       type: String,
       required: [true, 'Message Body is required']
     },
@@ -19,7 +19,7 @@ const messageModel = new mongoose.Schema(
       ref: 'Channel',
       required: [true, 'Channel id is required']
     },
-    workspace: {
+    workspaceId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Workspace',
       required: [true, 'Workspace id is required']

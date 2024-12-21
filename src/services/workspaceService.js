@@ -130,9 +130,12 @@ export const getWorkspacesByJoinCodeService = async (joinCode, userId) => {
       });
     }
 
-    const isUserAdminofWorkspace = isUserAdmin(workspace, userId);
+    const ismemberOfWorkspace = isMemberAlreadyMemberOfWorkspace(
+      workspace,
+      userId
+    );
 
-    if (!isUserAdminofWorkspace) {
+    if (!ismemberOfWorkspace) {
       throw new ClientError({
         explanation: 'User is not the admin of the workspace',
         message: 'User is not the admin of the workspace',
@@ -158,9 +161,12 @@ export const getWorkspaceService = async (workspaceId, userId) => {
       });
     }
 
-    const isUserAdminofWorkspace = isUserAdmin(workspace, userId);
+    const ismemberOfWorkspace = isMemberAlreadyMemberOfWorkspace(
+      workspace,
+      userId
+    );
 
-    if (!isUserAdminofWorkspace) {
+    if (!ismemberOfWorkspace) {
       throw new ClientError({
         explanation: 'User is not the admin of the workspace',
         message: 'User is not the admin of the workspace',
