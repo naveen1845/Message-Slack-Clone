@@ -1,6 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 
 import { channelRepository } from '../repository/channelRespository.js';
+import { messageRepository } from '../repository/messageRepository.js';
 import ClientError from '../utils/errors/ClientError.js';
 import { isMemberAlreadyMemberOfWorkspace } from './workspaceService.js';
 
@@ -31,7 +32,20 @@ export const getChannelByIdService = async (channelId, userId) => {
       });
     }
 
-    return channel;
+    const messages = await messageRepository.getPaginatedMessages(
+      channelId,
+      20,
+      1
+    );
+
+    return {
+      messages,
+      _id: channel._id,
+      name: channel.name,
+      workspaceId: channel.workspaceId,
+      createdAt: channel.createdAt,
+      updatedAt: channel.updatedAt
+    };
   } catch (error) {
     console.log('getChannelByIdservice', error);
     throw error;
