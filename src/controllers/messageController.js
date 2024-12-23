@@ -1,6 +1,9 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { createMessageService, getMessagesService } from '../services/messageService.js';
+import {
+  createMessageService,
+  getMessagesService
+} from '../services/messageService.js';
 import {
   customErrorResponse,
   internalErrorResponse,
@@ -33,23 +36,23 @@ export const getMessages = async (req, res) => {
 };
 
 export const createMessage = async (req, res) => {
-    try {
-        const newMessage = await createMessageService({
-            channelId: req.params.channelId,
-            senderId: req.user,
-            body: req.body.text
-        })
-        return res
+  try {
+    const newMessage = await createMessageService({
+      channelId: req.params.channelId,
+      senderId: req.user,
+      body: req.body.text
+    });
+    return res
       .status(StatusCodes.OK)
       .json(successResponse(newMessage, 'Messages fetched successfully'));
-    } catch (error) {
-       console.log('createMessage:' , error);
-       if (error.statusCode) {
-        return res.status(error.statusCode).json(customErrorResponse(error));
-      }
-  
-      return res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json(internalErrorResponse(error));
+  } catch (error) {
+    console.log('createMessage:', error);
+    if (error.statusCode) {
+      return res.status(error.statusCode).json(customErrorResponse(error));
     }
-}
+
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(internalErrorResponse(error));
+  }
+};

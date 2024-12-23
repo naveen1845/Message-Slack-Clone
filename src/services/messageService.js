@@ -8,8 +8,8 @@ import { isMemberAlreadyMemberOfWorkspace } from './workspaceService.js';
 export const getMessagesService = async (channelId, userId, limit, page) => {
   try {
     const channelDetails =
-    await channelRepository.getChannelWithWorkspace(channelId);
-     
+      await channelRepository.getChannelWithWorkspace(channelId);
+
     const workspace = channelDetails.workspaceId;
 
     const isMember = isMemberAlreadyMemberOfWorkspace(workspace, userId);
@@ -27,7 +27,7 @@ export const getMessagesService = async (channelId, userId, limit, page) => {
       limit,
       page
     );
-    
+
     return messages;
   } catch (error) {
     console.log('getMessagesService : ', error);
@@ -35,15 +35,19 @@ export const getMessagesService = async (channelId, userId, limit, page) => {
   }
 };
 
-export const createMessageService = async ( messageObject ) => {
+export const createMessageService = async (messageObject) => {
   try {
-    const channelDetails =
-    await channelRepository.getChannelWithWorkspace(messageObject.channelId);
-     
-    const workspaceId = channelDetails.workspaceId._id;
-    const workspace = channelDetails.workspaceId
+    const channelDetails = await channelRepository.getChannelWithWorkspace(
+      messageObject.channelId
+    );
 
-    const isMember = isMemberAlreadyMemberOfWorkspace(workspace, messageObject.senderId);
+    const workspaceId = channelDetails.workspaceId._id;
+    const workspace = channelDetails.workspaceId;
+
+    const isMember = isMemberAlreadyMemberOfWorkspace(
+      workspace,
+      messageObject.senderId
+    );
 
     if (!isMember) {
       throw new ClientError({
@@ -52,10 +56,13 @@ export const createMessageService = async ( messageObject ) => {
         statusCode: StatusCodes.UNAUTHORIZED
       });
     }
-    const newMessage = await messageRepository.create( { ...messageObject, workspaceId: workspaceId } );
+    const newMessage = await messageRepository.create({
+      ...messageObject,
+      workspaceId: workspaceId
+    });
     return newMessage;
   } catch (error) {
     console.log('createMessageService : ', error);
     throw error;
   }
-}
+};
