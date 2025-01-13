@@ -152,7 +152,7 @@ export const getWorkspacesByJoinCodeService = async (joinCode, userId) => {
 
 export const getWorkspaceService = async (workspaceId, userId) => {
   try {
-    const workspace = await workspaceRespository.getById(workspaceId);
+    const workspace = await workspaceRespository.getWorkspaceById(workspaceId);
     if (!workspace) {
       throw new ClientError({
         explanation: 'Invalid Workspace Id',
@@ -213,6 +213,24 @@ export const updateWorkspaceService = async (
     return updatedWorkspace;
   } catch (error) {
     console.log('updateWorkspaceService : ', error);
+    throw error;
+  }
+};
+
+export const resetJoinIdService = async (workspaceId, userId) => {
+  try {
+    const joinCode = uuidv4().substring(0, 6).toUpperCase();
+    const updatedWorkspace = await updateWorkspaceService(
+      workspaceId,
+      {
+        joinId: joinCode
+      },
+      userId
+    );
+
+    return updatedWorkspace;
+  } catch (error) {
+    console.log('resetJoinIdService:', error);
     throw error;
   }
 };

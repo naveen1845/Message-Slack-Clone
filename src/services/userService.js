@@ -54,6 +54,7 @@ export const singInService = async function (data) {
     username: user.username,
     email: user.email,
     avatar: user.avatar,
+    _id: user._id,
     token: createJwt({ id: user._id, email: user.email })
   };
 };

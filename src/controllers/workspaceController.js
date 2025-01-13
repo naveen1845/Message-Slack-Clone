@@ -8,6 +8,7 @@ import {
   getWorkspacesByJoinCodeService,
   getWorkspaceService,
   getWorkspacesOfUserService,
+  resetJoinIdService,
   updateWorkspaceService
 } from '../services/workspaceService.js';
 import {
@@ -90,6 +91,24 @@ export const getWorkspace = async (req, res) => {
       .status(StatusCodes.OK)
       .json(successResponse(response, 'Workspace fetched successfully'));
   } catch (error) {
+    if (error.statusCode) {
+      return res.status(error.statusCode).json(customErrorResponse(error));
+    }
+
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(internalErrorResponse(error));
+  }
+};
+
+export const resetJoinId = async (req, res) => {
+  try {
+    const response = await resetJoinIdService(req.params.workspaceId, req.user);
+    return res
+      .status(StatusCodes.OK)
+      .json(successResponse(response, 'Workspace fetched successfully'));
+  } catch (error) {
+    console.log('resetJoinId:', error);
     if (error.statusCode) {
       return res.status(error.statusCode).json(customErrorResponse(error));
     }

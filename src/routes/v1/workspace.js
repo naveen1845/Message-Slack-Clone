@@ -8,6 +8,7 @@ import {
   getWorkspace,
   getWorkspaceByJoinCode,
   getWorkspacesOfUser,
+  resetJoinId,
   updatedWorkspace
 } from '../../controllers/workspaceController.js';
 import { isAuth } from '../../middlewares/authMiddleware.js';
@@ -29,6 +30,8 @@ router.put('/:workspaceId', isAuth, updatedWorkspace);
 router.put('/:workspaceId/members', isAuth, addMemberToWorkspace);
 
 router.put('/:workspaceId/channels', isAuth, addChannelToWorkspace);
+
+router.put('/:workspaceId/joinId/reset', isAuth, resetJoinId);
 
 router.delete('/:workspaceId', isAuth, deleteWorkspace);
 
