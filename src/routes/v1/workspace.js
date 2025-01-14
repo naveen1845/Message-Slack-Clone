@@ -8,6 +8,7 @@ import {
   getWorkspace,
   getWorkspaceByJoinCode,
   getWorkspacesOfUser,
+  joinWorkspace,
   resetJoinId,
   updatedWorkspace
 } from '../../controllers/workspaceController.js';
@@ -24,6 +25,8 @@ router.get('/', isAuth, getWorkspacesOfUser);
 router.get('/:workspaceId', isAuth, getWorkspace);
 
 router.get('/join/:joinCode', isAuth, getWorkspaceByJoinCode);
+
+router.put('/:workspaceId/join', isAuth, joinWorkspace);
 
 router.put('/:workspaceId', isAuth, updatedWorkspace);
 

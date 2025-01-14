@@ -9,7 +9,9 @@ import userRepository from './userRepository.js';
 export const workspaceRespository = {
   ...crudRepository(Workspace),
   getWorkspaceById: async function (workspaceId) {
-    const response = await Workspace.findById(workspaceId).populate('channels').populate('members.memberId');
+    const response = await Workspace.findById(workspaceId)
+      .populate('channels')
+      .populate('members.memberId');
     return response;
   },
   addMemberToWorkspace: async function (workspaceId, memberId, role) {
@@ -34,7 +36,7 @@ export const workspaceRespository = {
     }
 
     const isMemberAlreadyAMember = workspace.members.find((member) => {
-      return member.memberId == memberId;
+      return member.memberId.toString() == memberId;
     });
 
     if (isMemberAlreadyAMember) {

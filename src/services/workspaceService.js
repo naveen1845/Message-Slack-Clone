@@ -108,6 +108,38 @@ export const deleteWorkspaceService = async (workspaceId, userId) => {
   }
 };
 
+export const joinWorkspaceService = async (workspaceId, joinId, userId) => {
+  try {
+    const workspace = await workspaceRespository.getById(workspaceId);
+    if (!workspace) {
+      throw new ClientError({
+        explanation: 'Invalid Workspace Id',
+        message: 'Invalid details given by the user',
+        statusCode: StatusCodes.NOT_FOUND
+      });
+    }
+
+    if (workspace.joinId !== joinId) {
+      throw new ClientError({
+        explanation: 'Invalid JoinId',
+        message: 'Invalid details given by the user',
+        statusCode: StatusCodes.NOT_FOUND
+      });
+    }
+
+    const updatedWorkspace = await workspaceRespository.addMemberToWorkspace(
+      workspaceId,
+      userId,
+      'member'
+    );
+
+    return updatedWorkspace;
+  } catch (error) {
+    console.log('joinWorkspaceService : ', error);
+    throw error;
+  }
+};
+
 export const getWorkspacesOfUserService = async (userId) => {
   try {
     const response =
