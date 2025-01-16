@@ -39,10 +39,10 @@ export const getChannelByIdService = async (channelId, userId) => {
     );
 
     return {
-      messages,
       _id: channel._id,
       name: channel.name,
       workspaceId: channel.workspaceId,
+      messages,
       createdAt: channel.createdAt,
       updatedAt: channel.updatedAt
     };
